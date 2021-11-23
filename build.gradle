@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "$springBootVersion" apply false
+    id 'io.spring.dependency-management' version "$springDependencyManagerVersion" apply false
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+def javaProjects = [
+        project(':domain-crawler'),
+        project(':domain-processor'),
+        project(':domain-service'),
+]
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+
+    group = 'com.example'
+
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+        testImplementation "junit:junit:$junitVersion"
+        testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

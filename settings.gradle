@@ -1,0 +1,5 @@
+rootProject.name = 'kafka-streams-example'
+
+include('domain-crawler')
+include('domain-processor')
+include('domain-service')
